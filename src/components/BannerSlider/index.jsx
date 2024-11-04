@@ -5,13 +5,46 @@ import 'swiper/css'; // Import Swiper styles
 import 'swiper/css/pagination'; // Import pagination styles
 
 export const BannerSlider = () => {
-  // Common slide content
-  const SlideContent = ({ backgroundImage }) => (
+  // Updated SlideContent to accept custom title, subtitle, and styles
+  const SlideContent = ({ backgroundImage, title, subtitle, textLine1, textLine2 }) => (
     <div
       className="item w-full relative flex flex-col"
       style={{ background: `url(${backgroundImage}) center/cover`, height: '100vh' }}
     >
       <div className="info flex flex-col items-start justify-center pl-10 pr-10 h-full">
+        {/* Title and Subtitle */}
+        <div
+          style={{
+            position: 'absolute',
+            top: '35%',
+            left: '10%',
+            transform: 'translateY(-50%)',
+            color: 'orange',
+            fontFamily: 'Playfair Display, serif',
+          }}
+        >
+          <h3
+            style={{
+              fontSize: '2rem',
+              marginBottom: '0.5rem',
+              textAlign: 'left',
+              color: 'orange', // Title color
+            }}
+          >
+            {title}
+          </h3>
+          <p
+            style={{
+              fontSize: '1.5rem',
+              textAlign: 'left',
+              color: 'white', // Subtitle color
+            }}
+          >
+            {subtitle}
+          </p>
+        </div>
+
+        {/* Main Text */}
         <h2
           className="banner-title mb-4"
           style={{
@@ -28,8 +61,10 @@ export const BannerSlider = () => {
             transform: 'translateY(-50%)',
           }}
         >
-          Freshness Sealed<br />in Every Bucket
+          <span>{textLine1}</span><br /> {/* Line break for rendering */}
+          <span>{textLine2}</span>
         </h2>
+
         <div className="flex space-x-4 mb-4" style={{ position: 'absolute', left: '10%', top: '60%' }}>
           <Link
             href="#reserve-table"
@@ -94,9 +129,38 @@ export const BannerSlider = () => {
         }}
         className="banner-slider w-full h-full"
       >
-        {["/slide1.jpg", "/slide2.jpg", "/slide3.jpg"].map((image, index) => (
+        {/* Custom slides with title, subtitle, and text split into two lines */}
+        {[
+          {
+            image: "/slide1.png",
+            title: "Excellence in every bite",
+            subtitle: "Quality in every ingredient",
+            textLine1: "Where quality meets precision",
+            textLine2: "A taste of happiness"  // Second line of text
+          },
+          {
+            image: "/slide2.png",
+            title: "Delightful flavors",
+            subtitle: "For every occasion",
+            textLine1: "A taste of happiness",
+            textLine2: "in every bite"  // Second line of text
+          },
+          {
+            image: "/slide3.png",
+            title: "Experience the aroma",
+            subtitle: "Of exquisite cuisine",
+            textLine1: "Choosing the best quality",
+            textLine2: "for you"  // Second line of text
+          }
+        ].map((slide, index) => (
           <SwiperSlide key={index}>
-            <SlideContent backgroundImage={image} />
+            <SlideContent
+              backgroundImage={slide.image}
+              title={slide.title}
+              subtitle={slide.subtitle}
+              textLine1={slide.textLine1}
+              textLine2={slide.textLine2}
+            />
           </SwiperSlide>
         ))}
       </Swiper>

@@ -1,177 +1,132 @@
-import React from 'react';
+"use client";
 
-// Sample menu items (you can replace these with actual data or fetch from an API)
-const menu = {
-  Starters: [
+import React, { useState } from "react";
+import { useCart } from "@/context/CartContext"; // Adjust the path if needed
+import Image from "next/image"; // Use Next.js Image component
+
+// Sample product data structured similarly to your existing data
+const productData = {
+  Soup: [
     {
-      name: "Creamy Mushroom Soup",
-      price: "₹350",
-      description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-      image: "/starter1.jpeg" // Replace with actual image path
+      imageSrc: "/img1.jpg",
+      altText: "Veg Soup",
+      price: 250,
+      itemName: "Veg Soup",
+      description: "A delicious blend of fresh vegetables and herbs.",
     },
     {
-      name: "Stuffed Mushrooms",
-      price: "₹250",
-      description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-      image: "/starter1.jpeg" // Replace with actual image path
-    },
-    {
-      name: "Grilled Caesar Salad",
-      price: "₹180",
-      description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-      image: "/starter1.jpeg" // Replace with actual image path
-    },
-    {
-      name: "Signature Autumn Salad",
-      price: "₹250",
-      description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-      image: "/starter1.jpeg" // Replace with actual image path
-    },
-    {
-      name: "Glazed Tomato Bruschetta",
-      price: "₹350",
-      description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-      image: "/starter1.jpeg" // Replace with actual image path
+      imageSrc: "/img2.jpg",
+      altText: "Chicken Soup",
+      price: 350,
+      itemName: "Chicken Soup",
+      description: "A warm, hearty chicken broth with spices.",
     },
   ],
-  Seafood: [
+  Starters: [
     {
-      name: "Baked Oysters Rockefeller",
-      price: "₹130",
-      description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-      image: "/starter1.jpeg" // Replace with actual image path
+      imageSrc: "/starter1.jpeg",
+      altText: "Veg Starter",
+      price: 300,
+      itemName: "Veg Starter",
+      description: "Crispy fried vegetable rolls.",
     },
     {
-      name: "Grilled Shrimp Skewers",
-      price: "₹150",
-      description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-      image: "/starter1.jpeg" // Replace with actual image path
+      imageSrc: "/starter2.png",
+      altText: "Chicken Starter",
+      price: 400,
+      itemName: "Chicken Starter",
+      description: "Spicy chicken wings tossed in sauce.",
+    },
+  ],
+  Biryani: [
+    {
+      imageSrc: "/biryani1.jpeg",
+      altText: "Veg Biryani",
+      price: 400,
+      itemName: "Veg Biryani",
+      description: "Aromatic basmati rice cooked with fresh vegetables and spices.",
     },
     {
-      name: "Seafood Linguine",
-      price: "₹140",
-      description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-      image: "/starter1.jpeg" // Replace with actual image path
-    },
-    {
-      name: "Shrimp Scampi",
-      price: "₹200",
-      description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-      image: "/starter1.jpeg" // Replace with actual image path
+      imageSrc: "/biryani2.jpeg",
+      altText: "Chicken Biryani",
+      price: 500,
+      itemName: "Chicken Biryani",
+      description: "Tender chicken cooked with fragrant basmati rice.",
     },
   ],
   Drinks: [
     {
-      name: "Cranberry Juice",
-      price: "₹100",
-      description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-      image: "/drink1.jpeg" // Replace with actual image path
+      imageSrc: "/drink1.jpeg",
+      altText: "Lemonade",
+      price: 100,
+      itemName: "Lemonade",
+      description: "Refreshing lemonade to quench your thirst.",
     },
     {
-      name: "Hot Chocolate",
-      price: "₹140",
-      description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-      image: "/drink1.jpeg" // Replace with actual image path
-    },
-    {
-      name: "Lemon-Lime Soda",
-      price: "₹180",
-      description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-      image: "/drink1.jpeg" // Replace with actual image path
-    },
-    {
-      name: "Alcoholic beverages",
-      price: "₹250",
-      description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-      image: "/drink1.jpeg" // Replace with actual image path
-    },
-  ],
-  Specials: [
-    {
-      name: "Beef Tenderloin & Red Wine",
-      price: "₹130",
-      description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-      image: "/biryani2.jpeg" // Replace with actual image path
-    },
-    {
-      name: "Mushroom Risotto",
-      price: "₹150",
-      description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-      image: "/biryani2.jpeg" // Replace with actual image path
-    },
-    {
-      name: "Lobster Thermidor",
-      price: "₹140",
-      description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-      image: "/biryani2.jpeg" // Replace with actual image path
-    },
-    {
-      name: "Beef Bourguignon",
-      price: "₹200",
-      description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-      image: "/biryani2.jpeg" // Replace with actual image path
-    },
-  ],
-  Meat: [
-    {
-      name: "Beef Bourguignon",
-      price: "₹300",
-      description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-      image: "/starter4.png" // Replace with actual image path
-    },
-    {
-      name: "Barbecue Ribs",
-      price: "₹280",
-      description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-      image: "/starter4.png" // Replace with actual image path
-    },
-    {
-      name: "Roasted Turkey",
-      price: "₹400",
-      description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-      image: "/starter4.png" // Replace with actual image path
-    },
-    {
-      name: "Beef Stroganoff",
-      price: "₹920",
-      description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-      image: "/starter4.png" // Replace with actual image path
+      imageSrc: "/drink2.jpeg",
+      altText: "Mango Lassi",
+      price: 150,
+      itemName: "Mango Lassi",
+      description: "Creamy mango yogurt drink.",
     },
   ],
 };
 
-const Menu = () => {
-  return (
-    <div className="menu-page bg-gray-50">
-      <section className="menu-section" style={{ paddingTop: '100px' }}>
-        <div className="container mx-auto text-center">
-          <h1 className="text-5xl font-bold mb-10 text-gray-800">Our Delicious Menu</h1>
+const MenuPage = () => {
+  const { addToCart } = useCart(); // Use addToCart function from context
+  const [selectedCategory, setSelectedCategory] = useState("Soup"); // Set default category
 
-          {/* Loop through each category and display items */}
-          {Object.entries(menu).map(([category, items]) => (
-            <div key={category} className="menu-category mb-12">
-              <h2 className="text-3xl font-semibold mb-8 capitalize text-gray-700 border-b-4 inline-block border-yellow-500 pb-2">
-                {category}
-              </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                {items.map((item, index) => (
-                  <div
-                    key={index}
-                    className="menu-item border bg-white rounded-lg shadow-lg p-6 transform transition duration-300 hover:scale-105 hover:shadow-2xl"
+  const categoryIcons = {
+    Soup: "🍲",
+    Starters: "🍽️",
+    Biryani: "🍚",
+    Drinks: "🥤",
+  };
+
+  return (
+    <div className="bg-gray-300 min-h-screen py-8">
+      <div className="menu-container">
+        {/* Filter Products Section */}
+        <section className="filterProducts">
+          <ul className="flex flex-wrap justify-center space-x-10">
+            {["Soup", "Starters", "Biryani", "Drinks"].map((category) => (
+              <li
+                key={category}
+                className={`text-center cursor-pointer ${selectedCategory === category ? "font-bold text-green-600" : ""}`}
+                onClick={() => setSelectedCategory(category)}
+              >
+                <span className="text-2xl">{categoryIcons[category]}</span>
+                <h4 className="text-lg py-2 mb-0 font-bold">{category.toUpperCase()}</h4>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        {/* Products List */}
+        <div className="productsList py-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {productData[selectedCategory].map((item) => (
+              <div key={item.itemName} className="flex flex-col items-center">
+                <div className="product-item">
+                  <Image src={item.imageSrc} alt={item.altText} className="product-image" width={300} height={200} />
+                  <h4 className="font-semibold">{item.itemName}</h4>
+                  <p className="text-gray-600">{item.description}</p>
+                  <p className="font-bold">{`₹${item.price}`}</p>
+                  <button
+                    className="add-to-cart-button hover:bg-green-500 transition duration-300 ease-in-out"
+                    aria-label={`Add ${item.itemName} to cart`}
+                    onClick={() => addToCart(item)} 
                   >
-                    <img src={item.image} alt={item.name} className="w-full h-48 object-cover rounded-md mb-5" />
-                    <h3 className="text-2xl font-semibold text-gray-800 mb-3">{item.name}</h3>
-                    <p className="text-xl font-medium text-yellow-600 mb-3">{item.price}</p>
-                    <p className="text-sm text-gray-600 mb-4">{item.description}</p>
-                  </div>
-                ))}
+                    Add to Cart
+                  </button>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-      </section>
+      </div>
     </div>
   );
 };
 
-export default Menu; // Make sure the component is exported with capital 'M'
+export default MenuPage;

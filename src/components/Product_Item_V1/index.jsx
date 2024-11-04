@@ -1,7 +1,7 @@
-"use client"; // Add this to mark it as a Client Component
+"use client"; // Mark as a Client Component
 
 import Image from "next/image";
-import React from "react";
+import React from "react"; // Removed useState as it's no longer needed
 import PropTypes from "prop-types"; // Import PropTypes
 import Checkbox from "@mui/material/Checkbox";
 import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
@@ -22,7 +22,7 @@ export const ProductItemV1 = ({
   const { addToCart } = useCart(); // Get addToCart function from context
 
   const handleAddToCart = () => {
-    const product = { imageSrc, altText, price, soupName, description }; // Create product object
+    const product = { imageSrc, altText, price, soupName, description, quantity: 1 }; // Set a default quantity of 1
     addToCart(product); // Add the product to the cart
   };
 
@@ -62,7 +62,7 @@ export const ProductItemV1 = ({
       <div className="mt-auto text-center pb-4">
         <button 
           onClick={handleAddToCart} 
-          className="add-to-cart-btn bg-green-500  text-white px-4 py-2 rounded-lg font-bold transition duration-200 hover:bg-green-600"
+          className="add-to-cart-btn bg-green-500 text-white px-4 py-2 rounded-lg font-bold transition duration-200 hover:bg-green-600"
         >
           ADD TO CART
         </button>

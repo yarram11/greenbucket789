@@ -4,38 +4,41 @@ import "./globals.css";
 import ThemeProvider from "../context/ThemeProvider";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import ScrollToTopButton from '../components/ScrollToTopButton';
-import { CartProvider } from "../context/CartContext";
-import CustomCursor from '../components/CustomCursor'; // Import your custom cursor
-import MapSection from '../components/MapSection'; // Import the Map Section
+import ScrollToTopButton from "../components/ScrollToTopButton";
+import { CartProvider } from "../context/CartContext"; // Keep this import only
+import CustomCursor from "../components/CustomCursor";
+import MapSection from "../components/MapSection";
+import { ClerkProvider } from "@clerk/nextjs"; // Import ClerkProvider
+
+// Add your Clerk frontend API to the environment variables
+const clerkFrontendApi = process.env.NEXT_PUBLIC_CLERK_FRONTEND_API;
 
 export const metadata = {
-  title: "Create Next App",
+  title: "Green Bucket Biryani",
   description: "This is a sample Next.js application.",
 };
 
 export default function RootLayout({ children }) {
   return (
-    <CartProvider>
-      <html lang="en">
-        <head>
-          <meta name="viewport" content="width=device-width, initial-scale=1" />
-          <link rel="icon" href="/favicon.ico" />
-        </head>
-        <body>
-          <ThemeProvider>
-            <Header />
-            <CustomCursor /> {/* Render the Custom Cursor here */}
-            <ScrollToTopButton />
-            <main>
+    <ClerkProvider>
+      <CartProvider>
+        <html lang="en">
+          <head>
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <link rel="icon" href="/favicon.ico" />
+          </head>
+          <body>
+            <ThemeProvider>
+              <Header />
+              <CustomCursor />
               {children}
-            </main>
-            {/* Add the Map Section here */}
-            <MapSection />
-            <Footer />
-          </ThemeProvider>
-        </body>
-      </html>
-    </CartProvider>
+              <ScrollToTopButton />
+              <MapSection />
+              <Footer />
+            </ThemeProvider>
+          </body>
+        </html>
+      </CartProvider>
+    </ClerkProvider>
   );
 }

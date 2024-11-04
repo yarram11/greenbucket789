@@ -30,7 +30,7 @@ const blogPosts = [
 
 const Blogs = () => {
   return (
-    <div className="blogs-section bg-white py-20">
+    <div className="blogs-section bg-gray-300 py-20">
       <div className="container mx-auto px-5 lg:px-20 text-center">
         <h1 className="text-5xl font-bold mb-10 text-gray-800">Our Blogs</h1>
         <p className="text-lg text-gray-600 mb-10">Stay updated with our latest stories and culinary insights</p>

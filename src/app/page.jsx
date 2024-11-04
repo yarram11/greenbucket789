@@ -69,29 +69,28 @@ const productData = {
   ],
   Biryani: [
     {
-      imageSrc: "/biryani1.jpeg",
-      altText: "Veg Biryani",
+      imageSrc: "/biryani7.jpg", // Path to the image
+      altText: "Veg Biryani", // Descriptive alt text
       price: 400,
       soupName: "Veg Biryani",
-      description:
-        "Aromatic basmati rice cooked with fresh vegetables and spices.",
+      description: "Aromatic basmati rice cooked with fresh vegetables and spices.",
     },
     {
-      imageSrc: "/biryani2.jpeg",
+      imageSrc: "/biryani5.jpg", // Path to the image
       altText: "Chicken Biryani",
       price: 500,
       soupName: "Chicken Biryani",
       description: "Tender chicken cooked with fragrant basmati rice.",
     },
     {
-      imageSrc: "/biryani3.png",
+      imageSrc: "/biryani6.jpg", // Path to the image
       altText: "Mutton Biryani",
       price: 600,
       soupName: "Mutton Biryani",
       description: "Rich and flavorful mutton layered with basmati rice.",
     },
     {
-      imageSrc: "/biryani4.jpeg",
+      imageSrc: "/biryani8.jpg", // Path to the image
       altText: "Fish Biryani",
       price: 550,
       soupName: "Fish Biryani",
@@ -130,6 +129,7 @@ const productData = {
   ],
 };
 
+
 export default function Home() {
   const [selectedCategory, setSelectedCategory] = useState("Soup");
   const [showIcons, setShowIcons] = useState(false);
@@ -160,147 +160,49 @@ export default function Home() {
     <>
       <BannerSlider />
 
-      <section className="content-inner bg-white section-wrapper-2 overflow-hidden special-menu-section">
-  <div className="container">
-    <div className="section-head text-center">
-      <h2 className="text-5xl font-bold mb-8 text-gray-800 font-serif tracking-wide italic">Special Menu</h2>
-    </div>
-    <div className="row">
-      {/* Starter */}
-      <div className="col-lg-3 col-md-6 col-sm-6 mb-30 wow fadeInUp">
-        <div className="dz-img-box style-2 box-hover">
-          <div className="digger-circle"></div>
-          <div className="dz-media">
-            <img src="/starter1.jpeg" alt="Veg Starter" />
-          </div>
-          <div className="dz-content">
-            <h4 className="dz-title">
-              <a href="/product-detail">Veg Starter</a>
-            </h4>
-            <p>A crispy vegetable starter perfect for any meal.</p>
-            <h5 className="dz-price text-primary">₹250.00</h5>
-          </div>
-        </div>
+      <section className="todays-special-section py-10">
+  <div className="max-w-6xl mx-auto">
+    <div
+      className="bg-cover bg-center rounded-lg p-10 relative"
+      style={{
+        backgroundImage: "url('/bg1.png')", // Transparent background image
+        backgroundSize: "cover",
+      }}
+    >
+      <div className="relative z-10 text-white text-center mb-8 p-4">
+        <h2 className="text-4xl font-bold text-white shadow-md">Today's Special</h2>
       </div>
-
-      {/* Chicken Biryani */}
-      <div className="col-lg-3 col-md-6 col-sm-6 mb-30 wow fadeInUp">
-        <div className="dz-img-box style-2 box-hover">
-          <div className="digger-circle"></div>
-          <div className="dz-media">
-            <img src="/biryani2.jpeg" alt="Chicken Biryani" />
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {productData.Biryani.map((product, index) => (
+          <div
+            key={index}
+            className="relative bg-white rounded-xl shadow-lg overflow-hidden flex flex-col"
+          >
+            <div className="absolute inset-0 bg-gray-200 rounded-xl transform -skew-y-6"></div>
+            <div className="relative z-10 p-4 flex flex-col flex-grow justify-between">
+              <div className="flex justify-between mb-2">
+                <h3 className="text-lg font-semibold">{product.soupName}</h3>
+                <h4 className="text-xl text-orange-500 font-bold">₹{product.price}.00</h4>
+              </div>
+              <div className="flex-grow flex items-center justify-center mb-4"> {/* Center image vertically */}
+                <Image
+                  src={product.imageSrc}
+                  alt={product.altText}
+                  width={250} // Fixed width for images
+                  height={250} // Fixed height for images
+                  className="rounded-lg object-cover h-60 w-60 hangover-effect" // Add hangover effect class
+                />
+              </div>
+            </div>
           </div>
-          <div className="dz-content">
-            <h4 className="dz-title">
-              <a href="/product-detail">Chicken Biryani</a>
-            </h4>
-            <p>Succulent chicken cooked in fragrant basmati rice.</p>
-            <h5 className="dz-price text-primary">₹500.00</h5>
-          </div>
-        </div>
-      </div>
-
-      {/* Mutton Biryani */}
-      <div className="col-lg-3 col-md-6 col-sm-6 mb-30 wow fadeInUp">
-        <div className="dz-img-box style-2 box-hover">
-          <div className="digger-circle"></div>
-          <div className="dz-media">
-            <img src="/biryani3.png" alt="Mutton Biryani" />
-          </div>
-          <div className="dz-content">
-            <h4 className="dz-title">
-              <a href="/product-detail">Mutton Biryani</a>
-            </h4>
-            <p>Rich and flavorful mutton layered with spices and rice.</p>
-            <h5 className="dz-price text-primary">₹600.00</h5>
-          </div>
-        </div>
-      </div>
-
-      {/* Fish Biryani */}
-      <div className="col-lg-3 col-md-6 col-sm-6 mb-30 wow fadeInUp">
-        <div className="dz-img-box style-2 box-hover">
-          <div className="digger-circle"></div>
-          <div className="dz-media">
-            <img src="/biryani4.jpeg" alt="Fish Biryani" />
-          </div>
-          <div className="dz-content">
-            <h4 className="dz-title">
-              <a href="/product-detail">Fish Biryani</a>
-            </h4>
-            <p>Delicate fish infused with aromatic spices and rice.</p>
-            <h5 className="dz-price text-primary">₹550.00</h5>
-          </div>
-        </div>
+        ))}
       </div>
     </div>
   </div>
 </section>
 
 
-
-<section className="quality-services py-10 relative">
-  <div className="container mx-auto text-center">
-
-    <h2 className="text-5xl font-bold mb-8 text-gray-800 font-serif tracking-wide italic">
-      Quality Services
-    </h2>
-    <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
-
-      {/* Left Image */}
-      <div className="absolute left-0 top-1/2 transform -translate-y-1/2">
-        <img src="/hang.PNG" alt="Left Image" className="w-40 h-auto object-cover" />
-      </div>
-
-      {/* Restaurant Service */}
-      <div className="service-box flex flex-col items-center p-6 border border-gray-300 rounded-lg shadow-lg transition-transform transform hover:scale-105 bg-gray-50 relative overflow-visible hover:bg-lime-50">
-        <div className="icon mb-4 -mt-8 relative z-10">
-          <img src="/restaurant.PNG" alt="Restaurant Icon" className="w-20 h-20 transition-opacity duration-500 ease-in-out hover:opacity-30 relative -top-6" />
-        </div>
-        <h3 className="text-xl font-semibold text-gray-700">Restaurant</h3>
-        <p className="text-sm text-gray-500">Delicious meals made with fresh ingredients.</p>
-        <div className="absolute inset-0 bg-lime-100 opacity-0 transition-opacity duration-500 ease-in-out hover:opacity-50"></div>
-      </div>
-
-      {/* Bar Service */}
-      <div className="service-box flex flex-col items-center p-6 border border-gray-300 rounded-lg shadow-lg transition-transform transform hover:scale-105 bg-gray-50 relative overflow-visible hover:bg-lime-50">
-        <div className="icon mb-4 -mt-8 relative z-10">
-          <img src="/martini.PNG" alt="Bar Icon" className="w-20 h-20 transition-opacity duration-500 ease-in-out hover:opacity-30 relative -top-6" />
-        </div>
-        <h3 className="text-xl font-semibold text-gray-700">Bar</h3>
-        <p className="text-sm text-gray-500">Refreshing drinks to unwind and relax.</p>
-        <div className="absolute inset-0 bg-lime-100 opacity-0 transition-opacity duration-500 ease-in-out hover:opacity-50"></div>
-      </div>
-
-      {/* Cafe Service */}
-      <div className="service-box flex flex-col items-center p-6 border border-gray-300 rounded-lg shadow-lg transition-transform transform hover:scale-105 bg-gray-50 relative overflow-visible hover:bg-lime-50">
-        <div className="icon mb-4 -mt-8 relative z-10">
-          <img src="/coffee-cup.PNG" alt="Cafe Icon" className="w-20 h-20 transition-opacity duration-500 ease-in-out hover:opacity-30 relative -top-6" />
-        </div>
-        <h3 className="text-xl font-semibold text-gray-700">Cafe</h3>
-        <p className="text-sm text-gray-500">Cozy space for coffee and conversations.</p>
-        <div className="absolute inset-0 bg-lime-100 opacity-0 transition-opacity duration-500 ease-in-out hover:opacity-50"></div>
-      </div>
-
-      {/* Dessert Service */}
-      <div className="service-box flex flex-col items-center p-6 border border-gray-300 rounded-lg shadow-lg transition-transform transform hover:scale-105 bg-gray-50 relative overflow-visible hover:bg-lime-50">
-        <div className="icon mb-4 -mt-8 relative z-10">
-          <img src="/cake.PNG" alt="Dessert Icon" className="w-20 h-20 transition-opacity duration-500 ease-in-out hover:opacity-30 relative -top-6" />
-        </div>
-        <h3 className="text-xl font-semibold text-gray-700">Dessert</h3>
-        <p className="text-sm text-gray-500">Sweet treats to satisfy your cravings.</p>
-        <div className="absolute inset-0 bg-lime-100 opacity-0 transition-opacity duration-500 ease-in-out hover:opacity-50"></div>
-      </div>
-
-      {/* Right Image */}
-      <div className="absolute right-0 top-1/2 transform -translate-y-1/2">
-        <img src="/hang1.PNG" alt="Right Image" className="w-40 h-auto object-cover" />
-      </div>
-
-    </div>
-  </div>
-</section>
-
+      
   {/* Filter Products Section */}
 <section className="filterProducts py-10 relative">
   <div className="container">
@@ -333,6 +235,15 @@ export default function Home() {
       ))}
     </ul>
     
+  {/* Left Image */}
+  <div className="absolute left-0 top-1/2 transform -translate-y-1/2">
+        <img src="/hang.PNG" alt="Left Image" className="w-40 h-auto object-cover" />
+      </div>
+
+       {/* Right Image */}
+       <div className="absolute right-0 top-1/2 transform -translate-y-1/2">
+        <img src="/hang1.PNG" alt="Right Image" className="w-40 h-auto object-cover" />
+      </div>
 
     <div className="productsList py-10">
       <div className="container mx-auto grid grid-cols-1 md:grid-cols-4 gap-7">
@@ -350,6 +261,12 @@ export default function Home() {
     </div>
   </div>
 </section>
+
+  {/* Left Image */}
+      <div className="absolute left-0 top-1/2 transform -translate-y-1/2">
+        <img src="/hang.PNG" alt="Left Image" className="w-40 h-auto object-cover" />
+      </div>
+
 
 
 {/* Customer Reviews Section */}

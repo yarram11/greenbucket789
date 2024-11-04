@@ -1,24 +1,35 @@
-"use client";
+"use client"; // Ensure this context is used in a client component
 
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 
 const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
 
+  // Load cart from localStorage on initial render
+  useEffect(() => {
+    const storedCart = localStorage.getItem('cartItems');
+    if (storedCart) {
+      setCartItems(JSON.parse(storedCart));
+    }
+  }, []);
+
+  // Save cart to localStorage whenever it changes
+  useEffect(() => {
+    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+  }, [cartItems]);
+
   const addToCart = (item) => {
     setCartItems((prevItems) => {
       const existingItem = prevItems.find((cartItem) => cartItem.soupName === item.soupName);
       if (existingItem) {
-        // If item already exists in the cart, update quantity
         return prevItems.map((cartItem) =>
           cartItem.soupName === item.soupName
             ? { ...cartItem, quantity: cartItem.quantity + 1 }
             : cartItem
         );
       }
-      // Otherwise, add new item with quantity 1
       return [...prevItems, { ...item, quantity: 1 }];
     });
   };
@@ -33,19 +44,27 @@ export const CartProvider = ({ children }) => {
 
   const decreaseQuantity = (soupName) => {
     setCartItems((prevItems) => {
-      return prevItems.map((item) => {
-        if (item.soupName === soupName) {
-          if (item.quantity === 1) {
-            // If quantity is 1, remove the item from the cart
-            return null; // Mark for removal
-          } else {
-            // Decrease the quantity
-            return { ...item, quantity: item.quantity - 1 };
+      return prevItems
+        .map((item) => {
+          if (item.soupName === soupName) {
+            if (item.quantity === 1) {
+              return null;
+            } else {
+              return { ...item, quantity: item.quantity - 1 };
+            }
           }
-        }
-        return item; // Return other items unchanged
-      }).filter(item => item !== null); // Filter out any marked for removal
+          return item;
+        })
+        .filter(item => item !== null);
     });
+  };
+
+  const removeItemFromCart = (soupName) => {
+    setCartItems((prevItems) => prevItems.filter(item => item.soupName !== soupName));
+  };
+
+  const getTotalPrice = () => {
+    return cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
   };
 
   const getCartCount = () => {
@@ -53,7 +72,15 @@ export const CartProvider = ({ children }) => {
   };
 
   return (
-    <CartContext.Provider value={{ cartItems, addToCart, increaseQuantity, decreaseQuantity, getCartCount }}>
+    <CartContext.Provider value={{ 
+      cartItems, 
+      addToCart, 
+      increaseQuantity, 
+      decreaseQuantity, 
+      removeItemFromCart, // Add this line
+      getCartCount, 
+      getTotalPrice 
+    }}>
       {children}
     </CartContext.Provider>
   );

@@ -134,14 +134,35 @@ nav a:hover {
   background-color: rgba(40, 167, 69, 0.7); /* Darker semi-transparent on hover */
 }
 
+.todays-special-section {
+  position: relative;
+}
+
+.todays-special-section h2 {
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+.todays-special-section .bg-cover {
+  background-size: cover;
+  background-position: center;
+}
+
+.hangover-effect {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hangover-effect:hover {
+  transform: translateY(-5px); /* Lift effect */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Shadow effect */
+}
+
+
 /* Special Menu Section */
 .special-menu-section {
   margin-bottom: 60px; 
-  background-image: url('/BG.jpg'); 
   background-size: cover; 
   background-position: center; 
   background-repeat: no-repeat; 
-  background-color: #f0f0f0; 
   padding: 100px 0 70px; 
   border-radius: 10px; 
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); 
@@ -270,6 +291,33 @@ nav a:hover {
   transform: translateY(-10px); /* A subtle hover effect for the icons */
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Add some shadow for emphasis */
 }
+/* globals.css or appropriate CSS file */
+.dz-content {
+  display: flex; /* Use flexbox */
+  flex-direction: column; /* Arrange children in a column */
+  justify-content: center; /* Center vertically */
+  align-items: center; /* Center horizontally */
+  text-align: center; /* Center text */
+  height: 100%; /* Ensure full height for proper centering */
+}
+
+.btn.add-to-cart {
+  background-color: #4caf50; /* Green background */
+  color: white; /* White text */
+  border: none; /* No border */
+  padding: 10px 20px; /* Add some padding */
+  font-size: 16px; /* Font size */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s ease; /* Smooth transition */
+  margin-top: 10px; /* Add margin to separate from the price */
+}
+
+.btn.add-to-cart:hover {
+  background-color: #388e3c; /* Darker green on hover */
+  border: 2px solid #2e7d32; /* Thick green border on hover */
+}
+
+
 
 .top-seller-label {
   background-color: green; /* Green background color */
@@ -282,6 +330,82 @@ nav a:hover {
   font-weight: bold; /* Bold text */
 }
 
+/* Menu page specific styles */
+.menu-container {
+  max-width: 1200px; /* Set a max width for the container */
+  margin: 0 auto; /* Center the container */
+  padding: 20px; /* Padding around the content */
+}
+
+.category-section {
+  margin-bottom: 2rem; /* Space between category sections */
+}
+
+.product-item {
+  width: 100%; /* Full width of the grid column */
+  height: 400px; /* Increased height for all product items */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between; /* Space out content vertically */
+  background-color: #fff; /* Background color for items */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional shadow */
+  transition: transform 0.2s; /* Smooth hover effect */
+  padding: 16px; /* Padding inside each product item */
+}
+
+.product-item:hover {
+  transform: scale(1.05); /* Scale effect on hover */
+}
+
+.product-image {
+  width: 100%; /* Full width of the item */
+  height: 60%; /* Fixed height relative to the item */
+  object-fit: cover; /* Cover the area without stretching */
+  border-radius: 8px; /* Rounded corners */
+}
+
+.product-description {
+  padding: 0.5rem; /* Padding for item description */
+  text-align: center; /* Center the text */
+}
+
+.add-to-cart-button {
+  background-color: #007bff; /* Button color */
+  color: white; /* Button text color */
+  padding: 10px 20px; /* Padding for the button */
+  border: none; /* No border */
+  border-radius: 4px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  font-weight: bold; /* Bold text */
+  transition: background-color 0.3s; /* Smooth transition */
+}
+
+.add-to-cart-button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+.filterProducts {
+  margin-bottom: 2rem; /* Space below filter section */
+}
+
+h1, h2, h3, h4 {
+  margin: 0; /* Remove default margin from headings */
+}
+
+ul {
+  list-style-type: none; /* Remove default list styles */
+  padding: 0; /* Remove padding from lists */
+}
+
+li {
+  cursor: pointer; /* Indicate clickable items */
+}
+
+li:hover {
+  text-decoration: underline; /* Underline effect on hover */
+}
 
 /*/* Quality Services Section */
 .quality-services {
@@ -314,15 +438,7 @@ footer .footer-bottom {
   margin-top: 1.25rem; /* Tailwind's mt-5 */
 }
 
-/* Menu Page Styles */
-.menu-page {
-  background-color: #f9fafb; /* Light gray color */
-}
 
-.menu-section {
-  background-color: #fff; /* White background for the menu section */
-  padding: 2rem 0;
-}
 
 .menu-category h2,
 .menu-item h3 {
